@@ -1,0 +1,87 @@
+# Contact class
+class Contact:
+    def __init__(self, name, phone, email):
+        self.name = name
+        self.phone = phone
+        self.email = email
+
+    def __str__(self):
+        return f"{self.name}: {self.phone}, {self.email}"
+
+# ContactManager class
+class ContactManager:
+    def __init__(self):
+        self.contacts = {}
+
+    def add_contact(self, name, phone, email):
+        self.contacts[name] = Contact(name, phone, email)
+
+    def delete_contact(self, name):
+        if name in self.contacts:
+            del self.contacts[name]
+        else:
+            print(f"Contact '{name}' not found.")
+
+    def update_contact(self, name, phone=None, email=None):
+        if name in self.contacts:
+            if phone:
+                self.contacts[name].phone = phone
+            if email:
+                self.contacts[name].email = email
+        else:
+            print(f"Contact '{name}' not found.")
+
+    def search_contact(self, name):
+        if name in self.contacts:
+            return self.contacts[name]
+        else:
+            return None
+
+    def display_contacts(self):
+        for contact in self.contacts.values():
+            print(contact)
+
+# Main program
+def main():
+    contact_manager = ContactManager()
+
+    while True:
+        print("Simple Contact Management System")
+        print("1. Add A Contact")
+        print("2. Delete A Contact")
+        print("3. Update A Contact")
+        print("4. Search A Contact")
+        print("5. Display The Contacts")
+        print("6. Quit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            name = input("Enter name: ")
+            phone = input("Enter phone: ")
+            email = input("Enter email: ")
+            contact_manager.add_contact(name, phone, email)
+        elif choice == "2":
+            name = input("Enter name: ")
+            contact_manager.delete_contact(name)
+        elif choice == "3":
+            name = input("Enter name: ")
+            phone = input("Enter new phone: ")
+            email = input("Enter new email: ")
+            contact_manager.update_contact(name, phone, email)
+        elif choice == "4":
+            name = input("Enter name: ")
+            contact = contact_manager.search_contact(name)
+            if contact:
+                print(contact)
+            else:
+                print(f"Contact '{name}' not found.")
+        elif choice == "5":
+            contact_manager.display_contacts()
+        elif choice == "6":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
